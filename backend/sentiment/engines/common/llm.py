@@ -5,6 +5,7 @@ from langchain.chat_models import init_chat_model
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage, SystemMessage, HumanMessage
 
+from sentiment.engines.common.retries import with_retry
 from sentiment.engines.contract.agent_role import RoleKey, ROLE_INFOS
 from sentiment.engines.contract.settings import get_settings
 
@@ -60,7 +61,7 @@ class LLMClient:
         # 返回数据.
         return "".join(final_chunks)
 
-    # @with_retry
+    @with_retry
     async def generate_object(self,
                               system_prompt: str,
                               user_prompt: str,
