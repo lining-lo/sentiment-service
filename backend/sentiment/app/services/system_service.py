@@ -1,5 +1,9 @@
+import os
 from typing import Any
-from sentiment.engines.contract.settings import get_settings
+
+from dotenv import set_key
+
+from sentiment.engines.contract.settings import get_settings, ENV_FILE, reload_setting
 
 # 声明一个列表，来储存前端页面需要的key.
 ALLOWED_CONFIG_KEYS = [
@@ -32,3 +36,18 @@ class SystemService:
             result[key] = value
         # 4. 返回数据
         return result
+
+    # 定义一个修改的函数
+    def update_config(self, config_info: dict[str, Any]):
+        # 1. 校验key是否存在；MEDIA_AGENT_MODEL_NAME:"qwen-plus1"
+        unknow_keys = [key for key in config_info.keys() if key not in ALLOWED_CONFIG_KEYS]
+        # 2. 判断 unknow_keys
+        if unknow_keys:
+            raise ValueError(f"Unknown keys: {unknow_keys}")
+        # 3. 如果有值，则需要修改 .env 配置文件中的数据． set_key(ENV_FILE) os 包下的函数．
+        for key, value in config_info.items():
+            # quote_mode="never": 这个属性能够将修改的值变为真实数据 data ，并不会对数据添加双引号"data"
+            set_key(ENV_FILE, key, value)
+            os.environ[key] = value
+        # 4. 重新加载
+        reload_setting()

@@ -1,5 +1,5 @@
 from sentiment.app.dependencies import SystemServiceDep
-from sentiment.app.schemas.system_schema import ConfigResponse
+from sentiment.app.schemas.system_schema import ConfigResponse, ConfigUpdateRequest
 from fastapi import APIRouter
 
 router = APIRouter(prefix="/api/config", tags=["系统配置"])
@@ -14,3 +14,8 @@ def get_config(service: SystemServiceDep):
     config = service.get_config()
     # 2. 返回数据
     return ConfigResponse(config=config)
+
+
+@router.post(path="")
+def update_config(request: ConfigUpdateRequest, service: SystemServiceDep):
+    service.update_config(request.root)
