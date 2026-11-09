@@ -1,5 +1,5 @@
 import asyncio
-from typing import Any
+from typing import Any, T
 
 from langchain.chat_models import init_chat_model
 from langchain_core.language_models import BaseChatModel
@@ -59,6 +59,28 @@ class LLMClient:
             raise ValueError(f"{self.model_name}调用失败，异常信息：{str(exec)}")
         # 返回数据.
         return "".join(final_chunks)
+
+    # @with_retry
+    async def generate_object(self,
+                              system_prompt: str,
+                              user_prompt: str,
+                              structed_object: type[T]) -> T:
+        """让模型按 pydantic 模型的定义返回结构化数据,调用方直接拿到该类型的实例。"""
+        # 1. 构建消息
+        message_context = self.build_message_context(system_prompt, user_prompt)
+        # 2. 获取模型:结构化模式下可能需要关闭思考模型
+        chat_model = self.init_chat_object_model(is_structed=True)
+        # 3. 用 json_schema 方式约束输出结构(LangChain 会把 pydantic 模型转成 JSON Schema 发给模型)
+        structed = chat_model.with_structured_output(structed_object, method="json_schema")
+        try:
+            result = await structed.ainvoke(message_context)
+        except Exception as exec:
+            raise ValueError(f"{self.model_name}调用失败，异常信息：{str(exec)}")
+        # ainvoke 返回 None 说明模型没有按 schema 返回,属于异常情况,
+        # 转成 ValueError 交给上层(全局异常处理器会映射成 400)
+        if result is None:
+            raise ValueError(f"{system_prompt} is not a structured output")
+        return result
 
 
     # 构建消息对象列表
