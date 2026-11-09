@@ -94,10 +94,11 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+
 # Python 标准库里的装饰器,用来做函数结果的缓存:表示最近最少使用
 # lfu_cache: 表示最不常使用（被访问次数最少）
 @lru_cache  # 缓存注解
-def get_settings():
+def get_settings() -> Settings:
     """
     获取配置文件类
     :return:
