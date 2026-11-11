@@ -77,23 +77,7 @@ build-backend = "hatchling.build"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 default = true
 
-# 专用镜像源：PyTorch 官方 CUDA 12.8 编译轮子仓库
-# 设置 explicit = true，确保普通 PyPI 包不会误向该仓库请求
-[[tool.uv.index]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-# 依赖源精确路由
-# 强制 torch 和 torchvision 从上面指定的 PyTorch CUDA 镜像源下载，避免拉取到 CPU 版本
-[tool.uv.sources]
-torch = { index = "pytorch" }
-torchvision = { index = "pytorch" }
-
-
-
 [tool.hatch.build.targets.wheel]
 packages = ["sentiment"]
-
 
 # uv sync --python=3.11.14 --all-extras

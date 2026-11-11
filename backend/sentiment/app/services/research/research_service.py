@@ -1,3 +1,4 @@
+from sentiment.engines.common.research_tasks import research_task_manager
 from sentiment.engines.orchestrator.agent_orchestrator import ResearchAgentOrchestrator
 
 
