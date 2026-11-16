@@ -98,7 +98,7 @@ class LLMClient:
         model_name = self.model_name.lower()
         kwargs: dict[str, Any] = {}
         # 2. 如果是结构化对象，要关闭kimi的思考模式。
-        if is_structed and (model_name in "kimi" or "moonshot" in model_name):
+        if is_structed and ("kimi" in model_name or "moonshot" in model_name):
             kwargs['extra_body'] = {
                 "thinking": {
                     "type": "disabled"
