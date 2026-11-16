@@ -17,7 +17,6 @@ class BaseSectionSummaryNode(ResearchNode):
 
     system_prompt: str = ""
     user_prompt_template: str = SECTION_SUMMARY_USER_PROMPT
-    max_rendered_evidence: int = 10
     fallback_body: str = ""
 
     async def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
@@ -40,9 +39,8 @@ class BaseSectionSummaryNode(ResearchNode):
             section["body"] = self.fallback_body
         else:
             evidence_context = build_evidence_context(
-                retrieval_text=self._retrieval_text(),
-                records=section_records,
-                max_rendered=self.max_rendered_evidence,
+                retrieval_text=self._retrieval_text(state, cursor),
+                records=section_records
             )
             section["body"] = await self._generate_section_body(
                 section,
@@ -59,9 +57,9 @@ class BaseSectionSummaryNode(ResearchNode):
         section_records = state.get("section_evidence_records")
         return section_records[cursor]
 
-    def _retrieval_text(self) -> str:
+    def _retrieval_text(self, state: dict[str, Any], cursor: int) -> str:
         """章节证据对应的检索文本，默认取研究主题"""
-        return self.context.query
+        return state["query"]
 
     async def _generate_section_body(
             self,

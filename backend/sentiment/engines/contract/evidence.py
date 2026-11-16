@@ -67,13 +67,12 @@ class EvidenceContext:
 def build_evidence_context(
         retrieval_text: str,
         records: list[EvidenceRecord],
-        max_rendered: int
 ) -> EvidenceContext:
     """统计命中数并渲染有限证据，构建 LLM 提示词上下文"""
     return EvidenceContext(
         retrieval_text=retrieval_text,
         evidence_text="\n\n".join(
-            _render_evidence_records(records[:max_rendered])
+            _render_evidence_records(records)
         ),
     )
 
