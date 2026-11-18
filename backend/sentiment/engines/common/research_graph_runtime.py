@@ -30,11 +30,12 @@ class ResearchNode(ABC):
 
 
 async def invoke_research_graph(
+        context: ResearchRunContext,
         graph: Any,
         query: str
 ):
     """以统一初始状态执行研究 Agent 的 LangGraph"""
-    initial_state = {"query": query}
+    initial_state = {"task_id": context.task_id, "query": query, "role": context.role}
     await graph.ainvoke(initial_state)
 
 
