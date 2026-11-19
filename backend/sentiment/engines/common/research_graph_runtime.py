@@ -2,9 +2,21 @@
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import Any, Mapping, Callable
 from sentiment.engines.common.llm import LLMClient
 from sentiment.engines.contract.agent_role import RoleKey
+
+
+@dataclass(slots=True)
+class ProgressUpdate:
+    """节点进度更新载荷"""
+
+    status: str
+    message: str
+    progress_pct: int
+
+
+ProgressCallback = Callable[[ProgressUpdate], None]
 
 
 @dataclass(slots=True)
@@ -15,6 +27,11 @@ class ResearchRunContext:
     role: RoleKey
     llm_client: LLMClient
     output_dir: str
+    progress_callback: ProgressCallback
+
+    def report_progress(self, status: str, message: str, pct: int) -> None:
+        """存在回调时上报当前节点执行进度"""
+        self.progress_callback(ProgressUpdate(status, message, pct))
 
 
 class ResearchNode(ABC):

@@ -4,6 +4,7 @@ from typing import Literal
 
 # 定义好角色的键 Literal限定这变量只能是其中之一
 RoleKey = Literal["insight", "media", "host", "report"]
+RESEARCH_ROLE_KEYS: tuple[RoleKey, ...] = ("insight", "media")
 
 
 # 定义角色信息类
@@ -28,4 +29,5 @@ ROLE_INFOS: dict[RoleKey, RoleInfo] = {
 
 def display_agent_name(role_key: RoleKey) -> str:
     """返回角色的中文展示名"""
+    # insight
     return ROLE_INFOS[role_key].display_name
