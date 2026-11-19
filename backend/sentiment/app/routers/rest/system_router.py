@@ -1,21 +1,18 @@
-from sentiment.app.dependencies import SystemServiceDep
-from sentiment.app.schemas.system_schema import ConfigResponse, ConfigUpdateRequest
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/api/config", tags=["系统配置"])
+from sentiment.app.dependencies import SystemConfigServiceDep
+from sentiment.app.schemas.system_schema import ConfigResponse, ConfigUpdateRequest
+
+router = APIRouter(prefix="/api/config", tags=["系统配置信息路由"])
 
 
-# 读取系统配置信息 返回值类型：ConfigResponse
-# 将这个类 SystemServiceDep 放入依赖声明.
-# 用户发起请求--FastAPI--Service
 @router.get(path="", response_model=ConfigResponse)
-def get_config(service: SystemServiceDep):
-    # 1. 读取数据
-    config = service.get_config()
-    # 2. 返回数据
-    return ConfigResponse(config=config)
+def get_config_endpoint(service: SystemConfigServiceDep):
+    config_info = service.read_config_info()
+    return ConfigResponse(config=config_info)
 
 
 @router.post(path="")
-def update_config(request: ConfigUpdateRequest, service: SystemServiceDep):
-    service.update_config(request.root)
+def update_config_endpoint(request: ConfigUpdateRequest,
+                           service: SystemConfigServiceDep):
+    service.update_config_info(request.root)
