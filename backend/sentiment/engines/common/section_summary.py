@@ -22,8 +22,6 @@ class BaseSectionSummaryNode(ResearchNode):
 
     async def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         """按游标取证据包生成章节正文并发布就绪事件"""
-
-        """按游标取证据包生成章节正文并发布就绪事件"""
         agent_name = display_agent_name(self.context.role)
         logger.info(f"{agent_name} 开始初始化固定章节并为各章节选择、排序和截取证据。")
 
@@ -47,8 +45,8 @@ class BaseSectionSummaryNode(ResearchNode):
                 section,
                 evidence_context,
             )
-
-        publish_section_ready(state, section)
+        # 发布数据：角色与任务 ID 从共享上下文取，图状态里没有这两个通道
+        publish_section_ready(section, self.context.role, self.context.task_id)
 
         sections[cursor] = section
         return {"sections": sections, "cursor": cursor + 1}
@@ -60,7 +58,9 @@ class BaseSectionSummaryNode(ResearchNode):
 
     def _retrieval_text(self, state: dict[str, Any], cursor: int) -> str:
         """章节证据对应的检索文本，默认取研究主题"""
-        return state["query"]
+        # query 未在 ResearchGraphState 中声明，LangGraph 会把它从状态里过滤掉；
+        # 运行上下文在整张图中共享，直接从这里取
+        return self.context.query
 
     async def _generate_section_body(
             self,
