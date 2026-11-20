@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">舆情分析平台 后端服务</title>
+  <desc id="hero-desc">左侧为项目名称与一句话说明：围绕一个研究主题并行调度两个研究智能体，逐章节比对证据后输出结构化裁决与综合报告。右侧图示五个固定章节中，私域与公域两条产出线逐章节配对，交由研判智能体裁决，最终汇聚为综合报告。</desc>
+
+  <style>
+    .serif { font-family: Georgia, 'Songti SC', 'STSong', 'SimSun', serif; }
+    .sans  { font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif; }
+    .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+
+  <defs>
+    <pattern id="hero-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0 H0 V60" fill="none" stroke="#ffffff" stroke-opacity="0.028" stroke-width="1"/>
+    </pattern>
+    <clipPath id="hero-clip">
+      <rect width="1200" height="400" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#hero-clip)">
+    <rect width="1200" height="400" fill="#080a0d"/>
+    <rect width="1200" height="400" fill="url(#hero-grid)"/>
+
+    <!-- identity -->
+    <g id="hero-identity">
+      <text class="mono" x="64" y="96" font-size="18" letter-spacing="2" fill="#8a8578">SENTIMENT INTELLIGENCE · BACKEND</text>
+
+      <text class="serif" x="64" y="178" font-size="64" fill="#e6e1d6">舆情分析平台</text>
+      <text class="serif" x="64" y="224" font-size="34" fill="#d4a034">多智能体舆情研究服务</text>
+
+      <text class="sans" x="64" y="282" font-size="20" fill="#8a8578">一个研究主题，两个研究智能体并行取数，</text>
+      <text class="sans" x="64" y="314" font-size="20" fill="#8a8578">逐章节比对证据，输出结构化裁决与综合报告。</text>
+
+      <text class="mono" x="64" y="366" font-size="18" letter-spacing="1.5" fill="#5c5850">PYTHON 3.11+ · FASTAPI · LANGGRAPH</text>
+    </g>
+
+    <!-- five fixed sections, two retrieval lines, one judgement, one report -->
+    <g id="hero-pipeline">
+      <text class="mono" x="638" y="124" font-size="18" letter-spacing="1.2" text-anchor="middle" fill="#d4a034">私域 · INSIGHT</text>
+      <text class="mono" x="778" y="124" font-size="18" letter-spacing="1.2" text-anchor="middle" fill="#5b7a9a">公域 · MEDIA</text>
+      <text class="mono" x="910" y="124" font-size="18" letter-spacing="1.2" text-anchor="middle" fill="#e6e1d6">研判 · HOST</text>
+      <text class="mono" x="1064" y="124" font-size="18" letter-spacing="1.2" text-anchor="middle" fill="#f2c94c">报告</text>
+
+      <g id="hero-rows">
+        <g transform="translate(0 156)">
+          <text class="mono" x="578" y="14" font-size="18" text-anchor="end" fill="#5c5850">01</text>
+          <rect x="592" y="0" width="92" height="20" rx="5" fill="#d4a034" fill-opacity="0.16" stroke="#d4a034" stroke-opacity="0.45"/>
+          <path d="M684 10 H732" stroke="#262c36" stroke-width="2"/>
+          <path d="M708 4 L714 10 L708 16 L702 10 Z" fill="#e6e1d6" fill-opacity="0.45"/>
+          <rect x="732" y="0" width="92" height="20" rx="5" fill="#5b7a9a" fill-opacity="0.18" stroke="#5b7a9a" stroke-opacity="0.5"/>
+          <path d="M824 10 H864" stroke="#262c36" stroke-width="2"/>
+          <rect x="864" y="0" width="92" height="20" rx="5" fill="#e6e1d6" fill-opacity="0.09" stroke="#e6e1d6" stroke-opacity="0.28"/>
+          <path d="M956 10 H974" stroke="#262c36" stroke-width="2"/>
+        </g>
+        <g transform="translate(0 196)">
+          <text class="mono" x="578" y="14" font-size="18" text-anchor="end" fill="#5c5850">02</text>
+          <rect x="592" y="0" width="92" height="20" rx="5" fill="#d4a034" fill-opacity="0.16" stroke="#d4a034" stroke-opacity="0.45"/>
+          <path d="M684 10 H732" stroke="#262c36" stroke-width="2"/>
+          <path d="M708 4 L714 10 L708 16 L702 10 Z" fill="#e6e1d6" fill-opacity="0.45"/>
+          <rect x="732" y="0" width="92" height="20" rx="5" fill="#5b7a9a" fill-opacity="0.18" stroke="#5b7a9a" stroke-opacity="0.5"/>
+          <path d="M824 10 H864" stroke="#262c36" stroke-width="2"/>
+          <rect x="864" y="0" width="92" height="20" rx="5" fill="#e6e1d6" fill-opacity="0.09" stroke="#e6e1d6" stroke-opacity="0.28"/>
+          <path d="M956 10 H974" stroke="#262c36" stroke-width="2"/>
+        </g>
+        <g transform="translate(0 236)">
+          <text class="mono" x="578" y="14" font-size="18" text-anchor="end" fill="#5c5850">03</text>
+          <rect x="592" y="0" width="92" height="20" rx="5" fill="#d4a034" fill-opacity="0.16" stroke="#d4a034" stroke-opacity="0.45"/>
+          <path d="M684 10 H732" stroke="#262c36" stroke-width="2"/>
+          <path d="M708 4 L714 10 L708 16 L702 10 Z" fill="#e6e1d6" fill-opacity="0.45"/>
+          <rect x="732" y="0" width="92" height="20" rx="5" fill="#5b7a9a" fill-opacity="0.18" stroke="#5b7a9a" stroke-opacity="0.5"/>
+          <path d="M824 10 H864" stroke="#262c36" stroke-width="2"/>
+          <rect x="864" y="0" width="92" height="20" rx="5" fill="#e6e1d6" fill-opacity="0.09" stroke="#e6e1d6" stroke-opacity="0.28"/>
+          <path d="M956 10 H974" stroke="#262c36" stroke-width="2"/>
+        </g>
+        <g transform="translate(0 276)">
+          <text class="mono" x="578" y="14" font-size="18" text-anchor="end" fill="#5c5850">04</text>
+          <rect x="592" y="0" width="92" height="20" rx="5" fill="#d4a034" fill-opacity="0.16" stroke="#d4a034" stroke-opacity="0.45"/>
+          <path d="M684 10 H732" stroke="#262c36" stroke-width="2"/>
+          <path d="M708 4 L714 10 L708 16 L702 10 Z" fill="#e6e1d6" fill-opacity="0.45"/>
+          <rect x="732" y="0" width="92" height="20" rx="5" fill="#5b7a9a" fill-opacity="0.18" stroke="#5b7a9a" stroke-opacity="0.5"/>
+          <path d="M824 10 H864" stroke="#262c36" stroke-width="2"/>
+          <rect x="864" y="0" width="92" height="20" rx="5" fill="#e6e1d6" fill-opacity="0.09" stroke="#e6e1d6" stroke-opacity="0.28"/>
+          <path d="M956 10 H974" stroke="#262c36" stroke-width="2"/>
+        </g>
+        <g transform="translate(0 316)">
+          <text class="mono" x="578" y="14" font-size="18" text-anchor="end" fill="#5c5850">05</text>
+          <rect x="592" y="0" width="92" height="20" rx="5" fill="#d4a034" fill-opacity="0.16" stroke="#d4a034" stroke-opacity="0.45"/>
+          <path d="M684 10 H732" stroke="#262c36" stroke-width="2"/>
+          <path d="M708 4 L714 10 L708 16 L702 10 Z" fill="#e6e1d6" fill-opacity="0.45"/>
+          <rect x="732" y="0" width="92" height="20" rx="5" fill="#5b7a9a" fill-opacity="0.18" stroke="#5b7a9a" stroke-opacity="0.5"/>
+          <path d="M824 10 H864" stroke="#262c36" stroke-width="2"/>
+          <rect x="864" y="0" width="92" height="20" rx="5" fill="#e6e1d6" fill-opacity="0.09" stroke="#e6e1d6" stroke-opacity="0.28"/>
+          <path d="M956 10 H974" stroke="#262c36" stroke-width="2"/>
+        </g>
+      </g>
+
+      <g id="hero-converge">
+        <path d="M974 166 V326" stroke="#262c36" stroke-width="2" fill="none"/>
+        <path d="M974 246 H984" stroke="#262c36" stroke-width="2" fill="none"/>
+        <path d="M984 240 L992 246 L984 252 Z" fill="#f2c94c" fill-opacity="0.7"/>
+      </g>
+
+      <g id="hero-report">
+        <rect x="992" y="156" width="144" height="180" rx="14" fill="#11151b" stroke="#262c36"/>
+        <rect x="992" y="156" width="144" height="3" rx="1.5" fill="#f2c94c" fill-opacity="0.7"/>
+        <rect x="1049" y="186" width="30" height="30" rx="6" fill="none" stroke="#d4a034" stroke-opacity="0.35" stroke-dasharray="5 4"/>
+        <text class="serif" x="1064" y="252" font-size="24" text-anchor="middle" fill="#e6e1d6">综合报告</text>
+        <text class="mono" x="1064" y="284" font-size="18" text-anchor="middle" fill="#f2c94c">MD · HTML</text>
+        <text class="mono" x="1064" y="310" font-size="14" text-anchor="middle" fill="#5c5850">REPORT ENGINE</text>
+      </g>
+    </g>
+  </g>
+</svg>

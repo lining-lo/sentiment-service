@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="wf-title wf-desc">
+  <title id="wf-title">研究流程：请求、并行研究、研判、报告</title>
+  <desc id="wf-desc">POST /api/research 创建 task_id 后，私域与公域两个研究智能体并行执行各自的检索与逐章节摘要流程并落盘；两侧的 section_ready 事件串行驱动研判智能体完成同章节配对与结构化裁决，五章节全部完成后写出 judgements.json；随后由报告引擎融合三方产物，生成 Markdown 与 HTML 报告。</desc>
+
+  <style>
+    .serif { font-family: Georgia, 'Songti SC', 'STSong', 'SimSun', serif; }
+    .sans  { font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif; }
+    .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+
+  <defs>
+    <pattern id="wf-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0 H0 V60" fill="none" stroke="#ffffff" stroke-opacity="0.022" stroke-width="1"/>
+    </pattern>
+    <clipPath id="wf-clip">
+      <rect width="1200" height="700" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#wf-clip)">
+    <rect width="1200" height="700" fill="#080a0d"/>
+    <rect width="1200" height="700" fill="url(#wf-grid)"/>
+
+    <g id="wf-caption">
+      <text class="mono" x="64" y="52" font-size="18" letter-spacing="1.6" fill="#8a8578">研究流程 · RESEARCH PIPELINE</text>
+      <text class="mono" x="64" y="104" font-size="18" letter-spacing="1.2" fill="#5c5850">01 · 请求</text>
+      <text class="mono" x="294" y="104" font-size="18" letter-spacing="1.2" fill="#5c5850">02 · 并行研究</text>
+      <text class="mono" x="740" y="104" font-size="18" letter-spacing="1.2" fill="#5c5850">03 · 研判</text>
+      <text class="mono" x="980" y="104" font-size="18" letter-spacing="1.2" fill="#5c5850">04 · 报告</text>
+    </g>
+
+    <g id="wf-request">
+      <rect x="64" y="160" width="190" height="140" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="64" y="160" width="3" height="140" rx="1.5" fill="#d4a034"/>
+      <text class="mono" x="84" y="200" font-size="18" fill="#8a8578">POST</text>
+      <text class="mono" x="84" y="226" font-size="18" fill="#d4a034">/api/research</text>
+      <text class="sans" x="84" y="272" font-size="18" fill="#8a8578">创建 task_id</text>
+    </g>
+
+    <g id="wf-lane-insight">
+      <rect x="294" y="140" width="398" height="160" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="294" y="140" width="3" height="160" rx="1.5" fill="#d4a034"/>
+      <text class="sans" x="314" y="184" font-size="20" fill="#d4a034">私域检索智能体</text>
+      <text class="mono" x="466" y="184" font-size="15" letter-spacing="1" fill="#5c5850">INSIGHT_AGENT</text>
+      <path d="M318 234 H582" stroke="#262c36" stroke-width="2"/>
+      <circle cx="318" cy="234" r="4" fill="#d4a034" fill-opacity="0.85"/>
+      <circle cx="406" cy="234" r="4" fill="#d4a034" fill-opacity="0.85"/>
+      <circle cx="494" cy="234" r="4" fill="#d4a034" fill-opacity="0.85"/>
+      <circle cx="582" cy="234" r="4" fill="#d4a034" fill-opacity="0.85"/>
+      <text class="sans" x="314" y="266" font-size="18" fill="#e6e1d6">双路召回</text>
+      <text class="sans" x="402" y="266" font-size="18" fill="#e6e1d6">去重重排</text>
+      <text class="sans" x="490" y="266" font-size="18" fill="#e6e1d6">章节路由</text>
+      <text class="sans" x="578" y="266" font-size="18" fill="#e6e1d6">逐章节摘要</text>
+      <text class="mono" x="314" y="292" font-size="15" fill="#5c5850">&#8594; var/{task_id}/insight/report.md</text>
+    </g>
+
+    <g id="wf-lane-media">
+      <rect x="294" y="340" width="398" height="160" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="294" y="340" width="3" height="160" rx="1.5" fill="#5b7a9a"/>
+      <text class="sans" x="314" y="384" font-size="20" fill="#5b7a9a">公域检索智能体</text>
+      <text class="mono" x="466" y="384" font-size="15" letter-spacing="1" fill="#5c5850">MEDIA_AGENT</text>
+      <path d="M318 434 H570" stroke="#262c36" stroke-width="2"/>
+      <circle cx="318" cy="434" r="4" fill="#5b7a9a"/>
+      <circle cx="444" cy="434" r="4" fill="#5b7a9a"/>
+      <circle cx="570" cy="434" r="4" fill="#5b7a9a"/>
+      <text class="sans" x="314" y="466" font-size="18" fill="#e6e1d6">搜索规划</text>
+      <text class="sans" x="440" y="466" font-size="18" fill="#e6e1d6">联网检索</text>
+      <text class="sans" x="566" y="466" font-size="18" fill="#e6e1d6">逐章节摘要</text>
+      <text class="mono" x="314" y="492" font-size="15" fill="#5c5850">&#8594; var/{task_id}/media/report.md</text>
+    </g>
+
+    <g id="wf-host">
+      <rect x="740" y="140" width="200" height="360" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="740" y="140" width="3" height="360" rx="1.5" fill="#e6e1d6" fill-opacity="0.45"/>
+      <text class="sans" x="760" y="184" font-size="20" fill="#e6e1d6">研判智能体</text>
+      <text class="mono" x="760" y="210" font-size="15" letter-spacing="1" fill="#5c5850">HOST_AGENT</text>
+      <path d="M764 268 V408" stroke="#262c36" stroke-width="2"/>
+      <circle cx="764" cy="268" r="4" fill="#e6e1d6" fill-opacity="0.6"/>
+      <circle cx="764" cy="338" r="4" fill="#e6e1d6" fill-opacity="0.6"/>
+      <circle cx="764" cy="408" r="4" fill="#e6e1d6" fill-opacity="0.6"/>
+      <text class="sans" x="782" y="274" font-size="18" fill="#e6e1d6">同章节双方配对</text>
+      <text class="mono" x="782" y="296" font-size="14" fill="#5c5850">SectionPairStore</text>
+      <text class="sans" x="782" y="344" font-size="18" fill="#e6e1d6">结构化裁决输出</text>
+      <text class="mono" x="782" y="366" font-size="14" fill="#5c5850">JSON Schema</text>
+      <text class="sans" x="782" y="414" font-size="18" fill="#e6e1d6">研判结果落盘</text>
+      <text class="mono" x="782" y="436" font-size="14" fill="#5c5850">judgements.json</text>
+      <text class="sans" x="760" y="480" font-size="15" fill="#5c5850">五章节全部判定后写出</text>
+    </g>
+
+    <g id="wf-report">
+      <rect x="980" y="200" width="156" height="240" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="980" y="200" width="156" height="3" rx="1.5" fill="#f2c94c" fill-opacity="0.7"/>
+      <text class="sans" x="996" y="248" font-size="20" fill="#e6e1d6">报告引擎</text>
+      <text class="mono" x="996" y="272" font-size="14" letter-spacing="1" fill="#5c5850">REPORT_ENGINE</text>
+      <rect x="996" y="300" width="124" height="34" rx="8" fill="#1a1f28" stroke="#262c36"/>
+      <text class="mono" x="1006" y="322" font-size="16" fill="#e6e1d6">report.md</text>
+      <rect x="996" y="346" width="124" height="34" rx="8" fill="#1a1f28" stroke="#262c36"/>
+      <text class="mono" x="1006" y="368" font-size="16" fill="#d4a034">report.html</text>
+      <text class="sans" x="996" y="410" font-size="15" fill="#8a8578">融合双报告与裁决</text>
+    </g>
+
+    <g id="wf-arrows">
+      <path d="M254 230 H276 M276 220 V420 M276 220 H290 M276 420 H290" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M292 215 L300 220 L292 225 Z" fill="#5c5850"/>
+      <path d="M292 415 L300 420 L292 425 Z" fill="#5c5850"/>
+
+      <path d="M692 220 H716 M692 420 H716 M716 220 V420 M716 320 H734" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M736 315 L744 320 L736 325 Z" fill="#5c5850"/>
+
+      <path d="M940 320 H972" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M974 315 L982 320 L974 325 Z" fill="#5c5850"/>
+    </g>
+
+    <g id="wf-bus">
+      <rect x="64" y="536" width="1072" height="104" rx="12" fill="#0d1116" stroke="#262c36"/>
+      <text class="mono" x="88" y="568" font-size="15" letter-spacing="1.4" fill="#5c5850">事件总线 · EVENT BUS</text>
+      <path d="M568 556 V620" stroke="#262c36" stroke-width="1"/>
+      <text class="mono" x="88" y="602" font-size="16" fill="#8a8578">role_progress · role_result · role_error</text>
+      <text class="mono" x="88" y="626" font-size="15" fill="#5c5850">&#8594; GET /api/events/stream</text>
+      <text class="mono" x="600" y="602" font-size="16" fill="#8a8578">section_ready · host_discussion_message</text>
+      <text class="mono" x="600" y="626" font-size="15" fill="#5c5850">&#8594; GET /api/host/discussion</text>
+    </g>
+  </g>
+</svg>

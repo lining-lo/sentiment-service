@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="rt-title rt-desc">
+  <title id="rt-title">私域双路检索：关键词召回与向量召回融合后再重排与章节路由</title>
+  <desc id="rt-desc">查询先经 jieba 分词，随后并行进入两条召回通道：MySQL 关键词召回走分词加 LIKE 匹配并合并四张舆情表；Milvus 混合检索同时发起稠密 COSINE 与稀疏 IP 两路请求并以 RRF 融合。两路结果按文档 ID 去重合并后重排，最终分等于 0.6 乘归一化召回分加 0.4 乘归一化热度分；再由关键词规则或 bge-small-zh 语义路由把证据分配到这五个固定章节，每章最多保留 20 条候选证据，逐章节调用大模型生成正文并落盘 report.md。</desc>
+
+  <style>
+    .serif { font-family: Georgia, 'Songti SC', 'STSong', 'SimSun', serif; }
+    .sans  { font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif; }
+    .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+
+  <defs>
+    <pattern id="rt-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0 H0 V60" fill="none" stroke="#ffffff" stroke-opacity="0.022" stroke-width="1"/>
+    </pattern>
+    <clipPath id="rt-clip">
+      <rect width="1200" height="470" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#rt-clip)">
+    <rect width="1200" height="470" fill="#080a0d"/>
+    <rect width="1200" height="470" fill="url(#rt-grid)"/>
+
+    <text class="mono" x="64" y="52" font-size="18" letter-spacing="1.6" fill="#8a8578">私域双路检索 · INSIGHT RETRIEVAL</text>
+
+    <g id="rt-query">
+      <rect x="64" y="150" width="150" height="110" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="64" y="150" width="150" height="3" rx="1.5" fill="#e6e1d6" fill-opacity="0.4"/>
+      <text class="sans" x="84" y="196" font-size="20" fill="#e6e1d6">查询与分词</text>
+      <text class="mono" x="84" y="224" font-size="14" fill="#5c5850">jieba</text>
+    </g>
+
+    <g id="rt-keyword">
+      <rect x="266" y="96" width="240" height="110" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="266" y="96" width="3" height="110" rx="1.5" fill="#d4a034"/>
+      <text class="sans" x="286" y="140" font-size="20" fill="#d4a034">MySQL 关键词召回</text>
+      <text class="mono" x="286" y="166" font-size="14" fill="#8a8578">jieba 分词 + LIKE 匹配</text>
+      <text class="mono" x="286" y="188" font-size="14" fill="#5c5850">四张舆情表并集</text>
+    </g>
+
+    <g id="rt-vector">
+      <rect x="266" y="264" width="240" height="110" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="266" y="264" width="3" height="110" rx="1.5" fill="#5b7a9a"/>
+      <text class="sans" x="286" y="308" font-size="20" fill="#5b7a9a">Milvus 混合检索</text>
+      <text class="mono" x="286" y="334" font-size="14" fill="#8a8578">稠密 COSINE + 稀疏 IP</text>
+      <text class="mono" x="286" y="356" font-size="14" fill="#5c5850">RRF 融合双路结果</text>
+    </g>
+
+    <g id="rt-merge">
+      <rect x="556" y="180" width="140" height="110" rx="12" fill="#11151b" stroke="#262c36"/>
+      <text class="sans" x="576" y="224" font-size="20" fill="#e6e1d6">去重合并</text>
+      <text class="mono" x="576" y="252" font-size="14" fill="#5c5850">按文档 ID 归并</text>
+    </g>
+
+    <g id="rt-rerank">
+      <rect x="736" y="180" width="190" height="110" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="736" y="180" width="190" height="3" rx="1.5" fill="#d4a034" fill-opacity="0.7"/>
+      <text class="sans" x="756" y="222" font-size="20" fill="#e6e1d6">融合重排</text>
+      <text class="mono" x="756" y="252" font-size="16" fill="#d4a034">0.6 &#215; 召回分</text>
+      <text class="mono" x="756" y="276" font-size="16" fill="#d4a034">+ 0.4 &#215; 热度分</text>
+    </g>
+
+    <g id="rt-routing">
+      <rect x="966" y="180" width="170" height="140" rx="12" fill="#11151b" stroke="#262c36"/>
+      <rect x="966" y="180" width="3" height="140" rx="1.5" fill="#4a9d8f"/>
+      <text class="sans" x="986" y="222" font-size="20" fill="#e6e1d6">章节路由</text>
+      <text class="mono" x="986" y="250" font-size="14" fill="#8a8578">关键词规则命中</text>
+      <text class="mono" x="986" y="272" font-size="14" fill="#5c5850">或语义最相近</text>
+      <text class="mono" x="986" y="296" font-size="14" fill="#4a9d8f">bge-small-zh-v1.5</text>
+    </g>
+
+    <g id="rt-arrows">
+      <path d="M214 205 H240 M240 151 V319 M240 151 H260 M240 319 H260" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M262 146 L270 151 L262 156 Z" fill="#5c5850"/>
+      <path d="M262 314 L270 319 L262 324 Z" fill="#5c5850"/>
+
+      <path d="M506 151 H530 M506 319 H530 M530 151 V319 M530 235 H550" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M552 230 L560 235 L552 240 Z" fill="#5c5850"/>
+
+      <path d="M696 235 H728" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M730 230 L738 235 L730 240 Z" fill="#5c5850"/>
+
+      <path d="M926 235 H958" stroke="#262c36" stroke-width="2" fill="none"/>
+      <path d="M960 230 L968 235 L960 240 Z" fill="#5c5850"/>
+
+      <path d="M1051 320 V352" stroke="#262c36" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+      <path d="M1046 350 L1051 358 L1056 350 Z" fill="#5c5850"/>
+    </g>
+
+    <g id="rt-output">
+      <rect x="64" y="360" width="1072" height="68" rx="12" fill="#0d1116" stroke="#262c36"/>
+      <text class="sans" x="96" y="400" font-size="18" fill="#e6e1d6">每章 Top 20 候选证据</text>
+      <text class="mono" x="330" y="400" font-size="18" fill="#5c5850">&#8594;</text>
+      <text class="sans" x="372" y="400" font-size="18" fill="#e6e1d6">逐章节调用大模型生成正文</text>
+      <text class="mono" x="664" y="400" font-size="18" fill="#5c5850">&#8594;</text>
+      <text class="mono" x="706" y="400" font-size="18" fill="#d4a034">report.md 落盘</text>
+    </g>
+  </g>
+</svg>
